@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" class="redesign no-js"  data-ffo-opensanslight=false data-ffo-opensans=false >
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <script>(function(d) { d.className = d.className.replace(/\bno-js/, ''); })(document.documentElement);</script>
+  
+    
+  
+
+  
+  <title>How do you upload files to a web server? - Learn web development | MDN</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+    <link rel="home" href="../../index.html">
+    <link rel="copyright" href="../../Learn/Upload_files_to_a_web_server.html#copyright">
+  
+
+  
+    
+    
+    <link href="https://developer.cdn.mozilla.net/static/build/styles/mdn.32e0115351e7.css" rel="stylesheet" type="text/css" />
+
+    
+  
+    <link href="https://developer.cdn.mozilla.net/static/build/styles/wiki.22984ab74297.css" rel="stylesheet" type="text/css" />
+
+    
+      
+        <link rel="stylesheet" type="text/css" href="../Learn$styles.css">
+      
+    
+
+    <!-- common social tags -->
+    
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://developer.cdn.mozilla.net/static/img/opengraph-logo.dc4e08e2f6af.png">
+    <meta property="og:site_name" content="Mozilla Developer Network">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://developer.cdn.mozilla.net/static/img/opengraph-logo.dc4e08e2f6af.png">
+    <meta name="twitter:site" content="@MozDevNet">
+    <meta name="twitter:creator" content="@MozDevNet">
+    <link rel="search" type="application/opensearchdescription+xml" href="../../search/xml" title="Mozilla Developer Network">
+  
+
+  <!-- third-generation iPad with high-resolution Retina display: -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://developer.cdn.mozilla.net/static/img/favicon144.a6e4162070f4.png">
+  <!-- iPhone with high-resolution Retina display: -->
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://developer.cdn.mozilla.net/static/img/favicon114.0e9fabd44f85.png">
+  <!-- first- and second-generation iPad: -->
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://developer.cdn.mozilla.net/static/img/favicon72.8ff9d87c82a0.png">
+  <!-- non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+  <link rel="apple-touch-icon-precomposed" href="https://developer.cdn.mozilla.net/static/img/favicon57.a2490b9a2d76.png">
+  <!-- basic favicon -->
+  
+    
+  
+  <link rel="shortcut icon" href="https://developer.cdn.mozilla.net/static/img/favicon32.e02854fdcf73.png">
+  <!--[if IE]>
+  <meta http-equiv="imagetoolbar" content="no">
+  <script type="text/javascript" src="https://developer.cdn.mozilla.net/static/build/js/html5shiv.3948ccddab6f.js" charset="utf-8"></script>
+  <![endif]-->
+
+  
+  <link rel="alternate" type="application/json" href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server$json">
+  <link rel="canonical" href="../../Learn/Upload_files_to_a_web_server.html" >
+
+  
+    
+      <link rel="alternate" hreflang="fr" href="https://developer.mozilla.org/fr/docs/Apprendre/Transf%C3%A9rer_des_fichiers_vers_un_serveur_web" title="Transférer des fichiers vers un serveur web">
+    
+      <link rel="alternate" hreflang="ko" href="https://developer.mozilla.org/ko/docs/Learn/Common_questions/Upload_files_to_a_web_server" title="How do you upload files to a web server?">
+    
+  
+
+  <!-- document-specific social tags -->
+  <meta property="og:title" content="How do you upload files to a web server?">
+  <meta property="og:url" content="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server">
+  <meta name="twitter:url" content="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server">
+  <meta name="twitter:title" content="How do you upload files to a web server?">
+  
+  <meta property="og:description" content="Now that you have built a simple page, you will want to put it online on some web server. We&#39;ll discuss how to do that using FTP.">
+  <meta name="description" content="Now that you have built a simple page, you will want to put it online on some web server. We&#39;ll discuss how to do that using FTP.">
+  <meta name="twitter:description" content="Now that you have built a simple page, you will want to put it online on some web server. We&#39;ll discuss how to do that using FTP.">
+  
+
+  
+  <script type="text/javascript">
+    
+      var document_saved = 0;
+    
+  </script>
+
+
+
+  
+    
+
+<script type="text/javascript">
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-36116321-5', 'mozilla.org');
+    ga('set', 'anonymizeIp', true);
+
+    
+
+    // dimension9 == "Section editing"
+    
+        ga('set', 'dimension9', 'Enabled');
+    
+        // dimension12 == 'Page Revision"
+        ga('set', 'dimension12', '1182639');
+
+    (function() {
+        // http://cfsimplicity.com/61/removing-analytics-clutter-from-campaign-urls
+        var win = window;
+        var removeUtms = function(){
+            var location = win.location;
+            if (location.href.indexOf('utm') != -1 && win.history.replaceState) {
+                win.history.replaceState({}, '', location.pathname);
+            }
+        };
+
+        ga('send', 'pageview', {'hitCallback': removeUtms});
+    })();
+</script>
+
+  
+</head>
+<body data-slug="Learn/Common_questions/Upload_files_to_a_web_server" contextmenu="edit-history-menu" data-search-url="" class="document zone ">
+
+  <script type="text/javascript">
+    (function(win) {
+        'use strict';
+
+        
+            (function(){
+  var FLAGS = {
+    'compat_api': false,'kumaediting': false,'page_move': false,'registration_disabled': false,'search_suggestions': false,'section_edit': true,'sg_task_completion': false,'spam_admin_override': false,'spam_checks_enabled': true,'spam_spammer_override': false,'spam_submissions_enabled': false,'spam_testing_mode': false,'wiki_samples': true,'wiki_spam_exempted': false,'wiki_spam_training': false
+    },
+    SWITCHES = {
+    'wiki_error_on_delete': false,'wiki_force_immediate_rendering': false,'enable_optimizely': false,'welcome_email': true,'application_ACAO': true,'store_revision_ips': true,'dumb_doc_urls': true,'newsletter': true,'newsletter_article': true,'foundation_callout': false
+    },
+    SAMPLES = {
+    
+    };
+  window.waffle = {
+    "flag_is_active": function waffle_flag(flag_name) {
+      
+      return !!FLAGS[flag_name];
+    },
+    "switch_is_active": function waffle_switch(switch_name) {
+      
+      return !!SWITCHES[switch_name];
+    },
+    "sample_is_active": function waffle_sample(sample_name) {
+      
+      return !!SAMPLES[sample_name];
+    },
+    "FLAGS": FLAGS,
+    "SWITCHES": SWITCHES,
+    "SAMPLES": SAMPLES
+  };
+})();
+
+        
+
+        // This needs to be set before ckeditor.js loads
+        window.CKEDITOR_BASEPATH = '/static/js/libs/ckeditor/build/ckeditor/';
+
+        // This represents the site configuration
+        win.mdn = {
+            // Properties and settings for CKEditor will go here
+            ckeditor: {},
+            // Feature test results and methods will be placed here
+            features: {},
+            // The path to static assets (images, CSS, JS) in MDN
+            staticPath: 'https://developer.cdn.mozilla.net/static/',
+            // Optimizely API
+            optimizely: win['optimizely'] || [],
+            // Site notifications
+            
+            notifications: [],
+            
+            // Wiki-specific settings will be placed here
+            wiki: {
+                autosuggestTitleUrl: '/en-US/docs/get-documents'
+            },
+            // Assets that need to be dynamically injected
+            assets: {
+                css: {
+                    'editor-content': ['https://developer.cdn.mozilla.net/static/build/styles/editor-content.12d1b10de928.css',],
+                    'wiki-compat-tables': ['https://developer.cdn.mozilla.net/static/build/styles/wiki-compat-tables.6bcbd7e219b5.css',]
+                },
+                js: {
+                    'syntax-prism': ['https://developer.cdn.mozilla.net/static/build/js/syntax-prism.66bd4038bff3.js',],
+                    'wiki-compat-tables': ['https://developer.cdn.mozilla.net/static/build/js/wiki-compat-tables.14ce5dcb2c3d.js',]
+                }
+            }
+        };
+    })(this);
+</script>
+
+  
+
+  <ul id="nav-access">
+    <li><a href="../../Learn/Upload_files_to_a_web_server.html#document-main" id="skip-main">Skip to main content</a></li>
+    <li><a id="skip-language" href="../../Learn/Upload_files_to_a_web_server.html#language">Select language</a></li>
+    <li><a href="../../Learn/Upload_files_to_a_web_server.html#q" id="skip-search">Skip to search</a></li>
+  </ul>
+
+  <!-- Header -->
+  <header id="main-header"><div class="center">
+
+    <div id="tabzilla">
+        <a href="https://www.mozilla.org/" class="no-track">mozilla</a>
+    </div>
+
+    <div class="clear header-clear"></div>
+
+
+    <a href="../../index.html" class="logo">Mozilla Developer Network</a>
+
+
+    <div id="nav-sec">
+        
+                  <ul>
+                  <li><div class="login">
+    
+      
+       <a href="https://developer.mozilla.org/users/github/login/?next=%2Fen-US%2Fdocs%2FLearn%2FCommon_questions%2FUpload_files_to_a_web_server" class="login-link js-login-link" data-service="GitHub">
+        Sign in
+        <i class="icon-github" aria-hidden="true"></i>
+      </a>
+    
+</div></li>
+                </ul>
+        
+    </div>
+
+    <nav id="main-nav" role="navigation"><ul><li><a href="../../docs.1.html">Web Technologies<i aria-hidden="true" class="icon-caret-down"></i></a>
+
+        <div class="submenu submenu-cols-2 js-submenu" id="nav-platform-submenu">
+          <div class="submenu-column">
+            <div class="title">Technologies</div>
+            <ul>
+              <li><a href="../en/HTML.html">HTML</a></li>
+              <li><a href="../Web/CSS/Other_Resources.html">CSS</a></li>
+              <li><a href="../javascript_new_testpage.html">JavaScript</a></li>
+              <li><a href="../../Web/Guide/Graphics.html">Graphics</a></li>
+              <li><a href="../HTTP.1.html">HTTP</a></li>
+              <li><a href="../Web/Web_APIs.html">APIs / DOM</a></li>
+              <li><a href="../Mozilla/Add-ons/WebExtensions.html">WebExtensions</a></li>
+              <li><a href="../en/MathML.html">MathML</a></li>
+            </ul>
+          </div><div class="submenu-column last">
+            <div class="title">References & Guides</div>
+            <ul>
+              <li><a href="skills.1.html">Learning web development</a></li>
+              <li><a href="../Web/Tutorials.html">Tutorials</a></li>
+              <li><a href="../Web/Reference.html">References</a></li>
+              <li><a href="../Web_Development.html">Developer Guides</a></li>
+              <li><a href="../Accessibility.1.html">Accessibility</a></li>
+              <li><a href="../../Apps/Build/Games/Special_considerations.html">Game development</a></li>
+              <li><a href="../../docs.1.html">...more docs</a></li>
+            </ul>
+          </div>
+        </div>
+      </li><li><a href="../Zones.html">Mozilla Docs<i aria-hidden="true" class="icon-caret-down"></i></a>
+
+        <div class="submenu js-submenu" id="nav-zones-submenu">
+          <div class="submenu-column">
+            <ul>
+              <li><a href="../Mozilla/Add-ons.1.html">Add-ons</a></li>
+              <li><a href="../Mozilla/Firefox.html">Firefox</a></li>
+            </ul>
+          </div>
+        </div>
+      </li><li><a href="../../Apps/Quickstart/App_developer_tools.html">Developer Tools</a></li><li><a href="../Project:Feedback.html">Feedback<i aria-hidden="true" class="icon-caret-down"></i></a>
+
+        <div class="submenu js-submenu" id="nav-contact-submenu">
+          <div class="submenu-column">
+            <ul>
+                <li><a href="https://support.mozilla.org/">Get Firefox help<i aria-hidden="true" class="icon-external-link"></i></a></li>
+                <li><a href="http://stackoverflow.com/">Get web development help<i aria-hidden="true" class="icon-external-link"></i></a></li>
+            </ul>
+            <ul>
+              <li><a href="../Project:MDN/Community.html">Join the MDN community</a></li>
+              <li><a target="_blank" href="https://bugzilla.mozilla.org/form.doc?bug_file_loc=https%3A//developer.mozilla.org/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server">Report a content problem<i aria-hidden="true" class="icon-external-link"></i></a></li>
+              <li><a target="_blank" href="https://bugzilla.mozilla.org/form.mdn">Report a bug<i aria-hidden="true" class="icon-external-link"></i></a></li>
+            </ul>
+          </div>
+        </div>
+
+      </li><li class="nav-search-link"><a href="../../search.1.html" title="Search"><i aria-hidden="true" class="icon-search"></i></a></li><li class="main-nav-search"><form action="../../search.1.html" method="get" role="search">
+        <div class="search-wrap">
+          <label for="main-q" class="offscreen">Search</label>
+          <input type="search" id="main-q" name="q" placeholder="Search" data-value="" value="" />
+          <span class="search-trigger"><i aria-hidden="true" class="icon-search"></i></span>&nbsp;
+          <button type="submit" class="offscreen">Search</button>
+        </div>
+      </form></li></ul></nav>
+  </div></header>
+
+  <!-- Content will go here -->
+  <main id="content"><div class="center clear">
+  
+
+  
+      
+        <div class="zone-article-header" id="document-main"><div class="center">
+          <!-- zone title -->
+          <div class="zone-title"><a href="skills.1.html">Learn web development</a></div>
+          <!-- zone image -->
+          <div class="zone-image"></div>
+        </div></div>
+      
+
+     <!-- end is_zone -->
+
+
+    <div class="wiki-main-content" ><div class="center">
+      
+      <div class="article-meta">
+        <!-- action buttons -->
+        
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  <ul class="page-buttons" data-sticky="false">
+      
+      <li><button id="languages-menu" class="transparent" aria-haspopup="true" aria-owns="languages-menu-submenu" aria-expanded="false"><span>Languages</span><i aria-hidden="true" class="icon-language"></i></button>
+
+        <div class="submenu js-submenu" id="languages-menu-submenu">
+          <div class="submenu-column">
+            <ul id="translations">
+              
+                
+                
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/fr/docs/Apprendre/Transf%C3%A9rer_des_fichiers_vers_un_serveur_web" title="French">Français (fr)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/ko/docs/Learn/Common_questions/Upload_files_to_a_web_server" title="Korean">한국어 (ko)</a></bdi></li>
+                
+              
+
+              
+                <li><a href="Common_questions/Upload_files_to_a_web_server$locales.html" rel="nofollow, noindex" id="translations-add">Add a translation</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      
+      <li class="page-buttons-edit"><a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server$edit" class="button" data-optimizely-hook="button-edit-doc" id="edit-button" rel="nofollow, noindex">Edit<i aria-hidden="true" class="icon-pencil"></i></a></li>
+      
+
+        
+
+        <li><button id="advanced-menu" class="only-icon" aria-haspopup="true" aria-owns="advanced-menu-submenu" aria-expanded="false"><span>Advanced</span><i aria-hidden="true" class="icon-cog"></i></button>
+        <div class="submenu js-submenu" id="advanced-menu-submenu">
+          <!-- this page -->
+          <div class="submenu-column">
+            <div class="title">Advanced</div>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server$history" rel="nofollow, noindex">History</a></li>
+                
+                
+                
+
+
+                
+
+                
+                
+                
+                <li class="page-print"><a href="../../Learn/Upload_files_to_a_web_server.html#" onclick="return window.print();">Print this article</a></li>
+            </ul>
+          </div>
+        </div>
+  </li></ul>
+
+        <!-- crumbs -->
+        
+  <nav class="crumbs" role="navigation"><ol xmlns:v="http://rdf.data-vocabulary.org/#" aria-label="breadcrumbs">
+    <li typeof="v:Breadcrumb"><a href="https://developer.mozilla.org/en-US" rel="v:url" property="v:title">MDN</a></li>
+    
+      <li class="crumb" typeof="v:Breadcrumb"><a href="skills.1.html" rel="v:url" property="v:title">Learn web development</a></li>
+    
+      <li class="crumb" typeof="v:Breadcrumb"><a href="Skills/Web_Mechanics.html" rel="v:url" property="v:title">Common questions</a></li>
+    
+    <li class="crumb" typeof="v:Breadcrumb" property="v:title">How do you upload files to a web server?</li>
+  </ol></nav>
+      </div>
+
+      <!-- heading -->
+      <div id="wiki-document-head" class="document-head">
+          <span class="from-search-previous-box">
+            <a class="button from-search-previous only-icon disabled" title="Previous Search Result" data-empty-title="No Previous Search Result"><i aria-hidden="true" class="icon-chevron-left"></i></a>
+          </span>
+          <span class="from-search-navigate-wrap">
+            <a href="../../Learn/Upload_files_to_a_web_server.html#" class="from-search-navigate"><span class="from-search-navigate-up"><i aria-hidden="true" class="icon-double-angle-up"></i></span><span class="from-search-navigate-down"><i aria-hidden="true" class="icon-double-angle-down"></i></span></a>
+          </span>
+          <div class="from-search-toc submenu">
+            <span class="title">Your Search Results</span>
+            <ol></ol>
+          </div>
+          <span class="from-search-next-box">
+            <a class="button from-search-next only-icon disabled" title="Next Search Result" data-empty-title="No Previous Search Result"><i aria-hidden="true" class="icon-chevron-right"></i></a>
+          </span>
+
+        
+        <div class="contributor-avatars" data-all-text="see all contributors" data-alternate-message="hide contributors" data-has-hidden="1">
+            <ul>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/en-US/profiles/Jett" title="View profile: Jett">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="Jett" data-src="https://secure.gravatar.com/avatar/e9185e3a339460dddc45b85b57a60b76?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">Jett</noscript></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/en-US/profiles/chrisdavidmills" title="View profile: chrisdavidmills">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="chrisdavidmills" data-src="https://secure.gravatar.com/avatar/deeea0ba82390bd5acc539703c4b0cfb?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">chrisdavidmills</noscript></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/en-US/profiles/Jeremie" title="View profile: Jeremie">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="Jeremie" data-src="https://secure.gravatar.com/avatar/ea74cf7f528273838138e9ae407cd8ef?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">Jeremie</noscript></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/en-US/profiles/Andrew_Pfeiffer" title="View profile: Andrew_Pfeiffer">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="Andrew_Pfeiffer" data-src="https://secure.gravatar.com/avatar/5eb09ead2ae59781536803335ec21764?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">Andrew_Pfeiffer</noscript></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/en-US/profiles/notabene" title="View profile: notabene">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="notabene" data-src="https://secure.gravatar.com/avatar/3ae6bc11960df55f4b1dfc3b580445ad?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">notabene</noscript></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/en-US/profiles/RufusCSharma" title="View profile: RufusCSharma">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="RufusCSharma" data-src="https://secure.gravatar.com/avatar/07c7934f33c2e0180feb9078ea09a3b0?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">RufusCSharma</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/en-US/profiles/rhyne24" title="View profile: rhyne24">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="rhyne24" data-src="https://secure.gravatar.com/avatar/c2496e5a293cb1f7323cde2df2cefe1a?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">rhyne24</noscript></a>
+                </li>
+            
+            </ul>
+        </div>
+        
+
+        <h1>How do you upload files to a web server?</h1>
+
+      </div>
+      
+
+      <!-- start the main content container -->
+        <div id="wiki-column-container" class="wiki-right-present wiki-left-closed wiki-left-none">
+
+          <!-- content row with three strips -->
+          <div class="column-container column-container-reverse">
+
+            
+              <!-- TOC, approvals, etc -->
+              <div class="column-strip wiki-column" id="wiki-right">
+              
+              <!-- table of contents -->
+              <div id="toc" class="toc toggleable">
+                <a href="../../Learn/Upload_files_to_a_web_server.html#toc" class="title toggler" data-open-icon="icon-caret-right" data-closed-icon="icon-caret-down">In This Article<i></i></a>
+                <ol class="toggle-container">
+                  <li><a href="../../Learn/Upload_files_to_a_web_server.html#Summary" rel="internal">Summary</a><li><a href="../../Learn/Upload_files_to_a_web_server.html#Active_Learning" rel="internal">Active Learning</a><li><a href="../../Learn/Upload_files_to_a_web_server.html#Dig_deeper" rel="internal">Dig deeper</a><ol><li><a href="../../Learn/Upload_files_to_a_web_server.html#Getting_to_grips_with_an_FTP_client_FireFTP" rel="internal">Getting to grips with an FTP client: FireFTP</a><li><a href="../../Learn/Upload_files_to_a_web_server.html#Logging_in" rel="internal">Logging in</a><li><a href="../../Learn/Upload_files_to_a_web_server.html#Here_and_there_local_and_remote_view" rel="internal">Here and there: local and remote view</a><li><a href="../../Learn/Upload_files_to_a_web_server.html#Uploading_to_the_server" rel="internal">Uploading to the server</a><li><a href="../../Learn/Upload_files_to_a_web_server.html#Are_they_really_online" rel="internal">Are they really online?</a><li><a href="../../Learn/Upload_files_to_a_web_server.html#Other_methods_to_upload_files" rel="internal">Other methods to upload files</a></ol></li><li><a href="../../Learn/Upload_files_to_a_web_server.html#Next_steps" rel="internal">Next steps</a>
+                </ol>
+              </div>
+              
+              </div>
+            
+
+            
+            
+              
+            
+
+            <!-- center: main article content -->
+            <div id="wiki-content" class="column-main wiki-column text-content">
+
+              
+
+              
+
+              
+                
+                
+                
+              
+              
+
+              <!-- just the article content -->
+              <article id="wikiArticle">
+                
+                  
+                    <div class="summary">
+<p>This article shows how to publish your site online with <a title="FTP: FTP (File Transfer Protocol) was the standard protocol for many years for transferring files from one host to another over the Internet. Increasingly, though, teams and hosting accounts don't allow FTP and instead rely on a version control system like Git. You will still find it used on older hosting accounts, but it is safe to say that FTP is no longer considered best practice." href="../Glossary/FTP.html" class="glossaryLink">FTP</a> tools. </p>
+</div>
+
+<table class="learn-box standard-table">
+ <tbody>
+  <tr>
+   <th scope="row">Prerequisites:</th>
+   <td>You must know <a href="../../Learn/What_is_a_web_server.html">what a web server is</a> and <a href="../../Learn/Understanding_domain_names.html">how domain names work</a>. You must also know how to <a href="../../Learn/Set_up_a_basic_working_environment.html">set up a basic environment</a> and how to <a href="../../Learn/HTML/Write_a_simple_page_in_HTML.html">write a simple webpage</a>.</td>
+  </tr>
+  <tr>
+   <th scope="row">Objective:</th>
+   <td>Learn how to push files to a server using FTP.</td>
+  </tr>
+ </tbody>
+</table>
+
+<h2 id="Summary">Summary</h2>
+
+<p>Now that <a href="../../Learn/HTML/Write_a_simple_page_in_HTML.html">you have built a simple page</a>, you will want to put it online on some web server. We'll discuss how to do that using <a title="FTP: FTP (File Transfer Protocol) was the standard protocol for many years for transferring files from one host to another over the Internet. Increasingly, though, teams and hosting accounts don't allow FTP and instead rely on a version control system like Git. You will still find it used on older hosting accounts, but it is safe to say that FTP is no longer considered best practice." href="../Glossary/FTP.html" class="glossaryLink">FTP</a>.</p>
+
+<h2 id="Active_Learning">Active Learning</h2>
+
+<p><em>There is no active learning available yet. <a href="../How_to_start_contributions_to_Mozilla.html">Please, consider contributing</a>.</em></p>
+
+<h2 id="Dig_deeper">Dig deeper</h2>
+
+<h3 id="Getting_to_grips_with_an_FTP_client_FireFTP">Getting to grips with an FTP client: FireFTP</h3>
+
+<p>There are several FTP clients out there. Our demo covers FireFTP, since it's quite easy to set up in Firefox. If you use Firefox, just go to <a href="https://addons.mozilla.org/firefox/addon/fireftp/" class="external">FireFTP's addons page</a> and install FireFTP.</p>
+
+<div class="note">
+<p>Of course there are lots of other options. See <a href="../../Learn/How_much_does_it_cost.html#Publishing_tools.3A_FTP_client">Publishing tools: FTP clients</a> for more information.</p>
+</div>
+
+<p>Open FireFTP in a new tab. Two ways to do so in Firefox:</p>
+
+<ol>
+ <li><strong>Firefox menu <img src="https://mdn.mozillademos.org/files/9633/2014-01-10-13-08-08-f52b8c.png" alt="" style="height: 16px; width: 16px;"> ➤ <img src="https://mdn.mozillademos.org/files/9635/Screenshot%20from%202014-11-26%2014:24:56.png" alt="Developer" style="height: 24px; vertical-align: middle; width: 27px;"> ➤ FireFTP</strong></li>
+ <li><strong>Tools </strong>➤ <strong>Web Develope</strong>r ➤ <strong>FireFTP</strong></li>
+</ol>
+
+<p>Now you should see something like this:</p>
+
+<p><img src="https://mdn.mozillademos.org/files/9613/fireftp-default.png" alt="FireFTP : the interface, not connected to a server" style="height: 800px; width: 1280px;"></p>
+
+<h3 id="Logging_in">Logging in</h3>
+
+<p>For this example, we'll suppose that our hosting provider (the service that will host our HTTP web server) is a fictitious company "Example Hosting Provider" whose URLs look like this: <code>mypersonalwebsite.examplehostingprovider.net</code>.</p>
+
+<p>We have just opened an account and received this info from them:</p>
+
+<blockquote>
+<p>Congratulations for opening an account at Example Hosting Provider.</p>
+
+<p>Your account is: <code>demozilla</code></p>
+
+<p>Your website will be visible at <code>demozilla.examplehostingprovider.net</code></p>
+
+<p>To publish to this account, please connect through FTP with the following credentials:</p>
+
+<ul>
+ <li>FTP server: <code>ftp://demozilla.examplehostingprovider.net</code></li>
+ <li>User: <code>demozilla</code></li>
+ <li>Password: <code>quickbrownfox</code></li>
+ <li>To publish on the web, put your files into the <code>Public/htdocs</code> directory.</li>
+</ul>
+</blockquote>
+
+<p>Let's first look at <code>http://demozilla.examplehostingprovider.net/</code> — as you can see, so far there is nothing there:</p>
+
+<p><img src="https://mdn.mozillademos.org/files/9615/demozilla-empty.png" alt="Our demozilla personal website, seen in a browser: it's empty" style="height: 233px; width: 409px;"></p>
+
+<div class="note">
+<p><strong>Note:</strong> Depending on your hosting provider, most of the time you'll see a page saying something like “This website is hosted by [Hosting Service].”</p>
+</div>
+
+<p>To connect your FTP client to the distant server, press the <em>"Create an account..."</em> button and fill in the fields with the information furnished by the hosting provider:</p>
+
+<p><img src="https://mdn.mozillademos.org/files/9617/fireftp-createlogin.png" alt="FireFTP: creating an account" style="height: 436px; width: 578px;"></p>
+
+<h3 id="Here_and_there_local_and_remote_view">Here and there: local and remote view</h3>
+
+<p>Let's now connect with this newly-created account:</p>
+
+<p><img src="https://mdn.mozillademos.org/files/9619/fireftp-logged.png" alt="The FTP interface, once logged" style="height: 800px; width: 1280px;"></p>
+
+<p>Let's examine what you're seeing:</p>
+
+<ul>
+ <li>On the left, you see your local files. Navigate into the directory where you store your website (in this case, <code>mdn</code>).</li>
+ <li>On the right, you see remote files. We are logged into our distant FTP root (in this case, <code>users/demozilla</code>)</li>
+ <li>You can ignore the bottom zone for now. It's a live log of every interaction between your FTP client and the server.</li>
+</ul>
+
+<h3 id="Uploading_to_the_server">Uploading to the server</h3>
+
+<p>As you remember, our hosting provider told us that our files have to be stored in the <code>Public/htdocs</code> directory, so navigate there in your right pane:</p>
+
+<p><img src="https://mdn.mozillademos.org/files/9623/remote-htdocs-empty.png" alt="Changing to the htdocs folder on the remote server" style="height: 315px; width: 561px;"></p>
+
+<p>Now, to upload your files to the server, drag-and-drop them from the left pane to the right pane:</p>
+
+<p><img src="https://mdn.mozillademos.org/files/9625/files-dropped-onto-the-server.png" alt="The files show in the remote view: they have been pushed to the server" style="height: 800px; width: 1280px;"></p>
+
+<h3 id="Are_they_really_online">Are they really online?</h3>
+
+<p>So far, so good, but double-check by going to <code>http://demozilla.examplehostingprovider.net/</code> in your browser:</p>
+
+<p><img src="https://mdn.mozillademos.org/files/9627/here-we-go.png" alt="Here we go: our website is live!" style="height: 442px; width: 400px;"></p>
+
+<p>And <em lang="fr">voilà</em>! Our website is live!</p>
+
+<h3 id="Other_methods_to_upload_files">Other methods to upload files</h3>
+
+<p>The FTP protocol is one well-known method for publishing a website, but not the only one. Here are a few other possibilities:</p>
+
+<ul>
+ <li><strong>Web interfaces</strong>. An HTML interface acting as front-end for a remote file upload service. Provided by your hosting service.</li>
+ <li><strong>GitHub</strong> (advanced). Upload through <a title="git: Git is a free, open-source, distributed Source Code Management (SCM) system. It facilitates handling code bases with distributed development teams. What sets it apart from previous SCM systems is the ability to do common operations (branching, committing, etc.) on your local development machine, without having to change the master repository or even having write access to it." href="../Glossary/git.html" class="glossaryLink">git</a> with a combination of commit/push methods. See our <a href="../../Learn/Getting_started_with_the_web/Publishing_your_website.html">Publishing your website</a> articles from our <a href="../../Learn/Getting_started_with_the_web.1.html">Getting started with the Web</a> guide.</li>
+ <li><strong><a title="The definition of that term (Rsync) has not been written yet; please consider contributing it!" href="https://developer.mozilla.org/en-US/docs/Glossary/Rsync" class="new glossaryLink">Rsync</a></strong> (advanced). A local-to-remote file synchronizing system.</li>
+ <li><strong><a title="WebDAV: WebDAV  (Web Distributed Authoring and Versioning) is an HTTP Extension that lets web developers update their content remotely from a client." href="../WebDAV.html" class="glossaryLink">WebDAV</a></strong>. An extension of the <a title="HTTP: HTTP (HyperText Transfer Protocol) is the basic protocol that enables file transfer on the Web. HTTP is textual (all communication is done in plain text) and stateless (no communication is aware of previous communications)." href="../Glossary/HTTP.html" class="glossaryLink">HTTP</a> protocol to allow more advance file management.</li>
+</ul>
+
+<h2 id="Next_steps">Next steps</h2>
+
+<p>Well done, you're almost finished. The last important task is to <a href="Checking_that_your_web_site_is_working_properly.html">make sure your web site is working properly</a>.</p>
+                  
+                
+              </article>
+
+              
+
+                <!-- contributors -->
+                <div class="wiki-block contributors">
+                  <h2 class="offscreen">Document Tags and Contributors</h2>
+                  
+                  
+  <div class="tag-attach-list contributors-sub">
+    <i aria-hidden="true" class="icon-tags icon-fw"></i>
+    <strong>Tags:</strong>&nbsp;
+    <ul class="tags tags-small">
+      
+        <li><a href="../tag/Beginner.html" rel="nofollow, noindex">Beginner</a></li>
+      
+        <li><a href="../tag/NeedsActiveLearning.html" rel="nofollow, noindex">NeedsActiveLearning</a></li>
+      
+        <li><a href="../tag/WebMechanics.html" rel="nofollow, noindex">WebMechanics</a></li>
+      
+    </ul>
+  </div>
+
+
+                  
+                    <div class="contributors-sub">
+                      <i aria-hidden="true" class="icon-group icon-fw"></i>&nbsp;<strong>Contributors to this page:</strong> 
+        <a href="https://developer.mozilla.org/en-US/profiles/Jett">Jett</a>, 
+    
+        <a href="https://developer.mozilla.org/en-US/profiles/chrisdavidmills">chrisdavidmills</a>, 
+    
+        <a href="https://developer.mozilla.org/en-US/profiles/Jeremie">Jeremie</a>, 
+    
+        <a href="https://developer.mozilla.org/en-US/profiles/Andrew_Pfeiffer">Andrew_Pfeiffer</a>, 
+    
+        <a href="https://developer.mozilla.org/en-US/profiles/notabene">notabene</a>, 
+    
+        <a href="https://developer.mozilla.org/en-US/profiles/RufusCSharma">RufusCSharma</a>, 
+    
+        <a href="https://developer.mozilla.org/en-US/profiles/rhyne24">rhyne24</a>
+    
+                    </div>
+                  
+
+                  
+                    <div class="contributors-sub">
+                      <i aria-hidden="true" class="icon-clock-o icon-fw"></i>&nbsp;<strong>Last updated by:</strong>
+                      <a href="https://developer.mozilla.org/en-US/profiles/Jett">Jett</a>,
+                      <time datetime="2017-02-04T06:33:02.364960-08:00">Feb 4, 2017, 6:33:02 AM</time>
+                    </div>
+                  
+                </div>
+              
+
+              
+                  <div class="newsletter-box">
+                    <div class="newsletter">
+    <form id="newsletterForm" name="newsletter-form" class="nodisable" action="https://www.mozilla.org/en-US/newsletter/" method="post">
+        <h2 class="newsletter-teaser">Learn the best of web development</h2>
+        <p class="newsletter-description">Sign up for our newsletter:</p>
+        <input type="hidden" id="fmt" name="fmt" value="H">
+        <input type="hidden" id="newsletterNewslettersInput" name="newsletters" value="app-dev" />
+
+        <div id="newsletterErrors" class="newsletter-errors"></div>
+
+        <div id="newsletterEmail" class="form-group">
+            <label for="newsletterEmailInput" class="form-label offscreen">E-mail</label>
+            <input type="email" id="newsletterEmailInput" name="email" class="form-input newsletter-input-email" required placeholder="you@example.com" size="30">
+        </div>
+
+        <div id="newsletterPrivacy" class="form-group form-group-agree hidden">
+            <input type="checkbox" id="newsletterPrivacyInput" name="privacy" required>
+            <label for="newsletterPrivacyInput">
+            I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/">Privacy Policy</a>.
+            </label>
+        </div>
+        <div id="newsletterSubmit">
+            <button id="newsletter-submit" type="submit" class="button positive">Sign up now</button>
+        </div>
+        
+    </form>
+    <div id="newsletterThanks" class="newsletter-thanks hidden">
+        <h2>Thanks! Please check your inbox to confirm your subscription.</h2>
+        <p>If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. Please check your inbox or your spam filter for an email from us.
+        </p>
+    </div>
+    <button id="newsletterHide" type="button" class="only-icon newsletter-hide hidden"><span>Hide Newsletter Sign-up</span><i aria-hidden="true" class="icon-times"></i></button>
+</div>
+                  </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div> <!-- ends "main-content" -->
+
+  <menu type="context" id="edit-history-menu">
+    <menuitem data-action="/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server$edit" label="Edit page"></menuitem>
+    <menuitem data-action="/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server$history" label="View page history"></menuitem>
+  </menu>
+
+  </div></main>
+
+  <!-- Footer -->
+  <footer id="main-footer"><div class="center">
+    <div class="column-container">
+      <div class="column-main">
+        
+        <div class="contentinfo">
+          <p>&copy; 2005-2017 Mozilla Developer Network and individual contributors.</p> <p>Content is available under <a href="../Project:en.html#Copyrights_and_licenses">these licenses</a>.</p>
+          <ul>
+            <li><a href="https://developer.mozilla.org/docs/MDN/About">About MDN</a></li>
+            <li><a href="https://www.mozilla.org/about/legal/terms/mozilla">Terms</a></li>
+            <li><a href="https://www.mozilla.org/privacy/websites/">Privacy</a></li>
+            <li><a href="https://www.mozilla.org/privacy/websites/#cookies">Cookies</a></li>
+            <li><a href="https://github.com/mozilla/kuma">Contribute to the code</a></li>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="column-strip">
+        
+          
+  
+    <form class="languages go" method="get" action="../../docs.1.html">
+      <label for="language">Other languages:</label>
+      <select id="language" class="wiki-l10n" name="next" dir="ltr">
+        <option title="English (US)" value="/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server" selected>
+          English (US) (en-US)
+        </option>
+        
+          <option title="French" value="/fr/docs/Apprendre/Transf%C3%A9rer_des_fichiers_vers_un_serveur_web">
+            Français (fr)
+          </option>
+          <option title="Korean" value="/ko/docs/Learn/Common_questions/Upload_files_to_a_web_server">
+            한국어 (ko)
+          </option>
+      </select>
+      <noscript><button type="submit">Go</button></noscript>
+    </form>
+  
+
+        
+      </div>
+    </div>
+  </div></footer>
+
+  <!-- site js -->
+  
+    
+    <!--[if lte IE 8]><script type="text/javascript" src="https://developer.cdn.mozilla.net/static/build/js/selectivizr.091e18cf669b.js" charset="utf-8"></script><![endif]-->
+
+    
+    <script type="text/javascript" src="https://developer.cdn.mozilla.net/static/build/js/main.c76806317b56.js" charset="utf-8"></script>
+    
+      <script>
+        if(window.mdn && mdn.analytics) mdn.analytics.trackOutboundLinks();
+      </script>
+    
+    
+    <script type="text/javascript" src="https://developer.cdn.mozilla.net/static/jsi18n/en-us/javascript.b28203373cc1.js"></script>
+  
+    <script async type="text/javascript" src="https://developer.cdn.mozilla.net/static/build/js/wiki.d85ddd33511e.js" charset="utf-8"></script>
+
+
+  
+
+  
+    <script type="text/javascript">
+        (function($) {
+            $('#wikiArticle').children('h2[id]').each(function() {
+                var id = $(this).attr('id');
+                var href = '/en-US/docs/Learn/Common_questions/Upload_files_to_a_web_server$edit#' + id;
+
+                $('<a>').attr({
+                    href: href,
+                    'class': 'button section-edit only-icon',
+                    'rel': 'nofollow, noindex'
+                })
+                .append($('<i aria-hidden="true" class="icon-pencil"></i>'))
+                .append($('<span>'))
+                .find('span')
+                .text(gettext('Edit'))
+                .end()
+                .on('click', function(e) {
+                    e.preventDefault();
+
+                    mdn.analytics.trackEvent({
+                        category: 'Section Edit',
+                        action: id
+                    }, function() {
+                        window.location = href;
+                    });
+                })
+                .appendTo(this);
+            });
+        })(jQuery);
+    </script>
+  
+
+  
+
+  
+    <script async type="text/javascript" src="https://developer.cdn.mozilla.net/static/build/js/newsletter.7cd3274169f2.js" charset="utf-8"></script>
+  
+
+
+</body>
+</html>
